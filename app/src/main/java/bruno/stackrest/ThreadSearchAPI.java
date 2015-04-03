@@ -1,5 +1,7 @@
 package bruno.stackrest;
 
+import android.util.Log;
+
 import java.util.List;
 
 import retrofit.Callback;
@@ -10,7 +12,11 @@ import retrofit.http.GET;
  */
 public interface ThreadSearchAPI {
 
-    @GET("BUILT_STRING")
-    public void getFeed(Callback<List<ThreadSearch>> response);
+
+
+    @GET("/search?pagesize=7&order=desc&sort=activity&tagged=android&site=stackoverflow")
+
+    public void getFeed(Callback<ThreadSearch> response);
+
 
 }

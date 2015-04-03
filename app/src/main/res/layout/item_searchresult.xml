@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/list_item">
+
+    <ImageView
+        android:id="@+id/picture_poster"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="Posted Picture"
+        android:background="#ffbebebe" />
+
+    <TextView
+        android:id="@+id/thread_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thread name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/picture_poster"
+        android:layout_toRightOf="@+id/picture_poster"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/picture_poster"
+        android:layout_marginLeft="12dp"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/poster_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Poster Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignBottom="@+id/picture_poster"
+        android:layout_toRightOf="@+id/picture_poster"
+        android:layout_toEndOf="@+id/picture_poster"
+        android:layout_marginLeft="12dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/answers_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answers: "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/answers_number"
+        android:layout_toLeftOf="@+id/answers_number"
+        android:layout_toStartOf="@+id/answers_number"
+        android:layout_marginRight="0dp"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/answers_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/poster_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="0dp"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+</RelativeLayout>

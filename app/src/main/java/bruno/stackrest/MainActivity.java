@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -20,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
 
     Button button_search;
     ThreadSearch threadList;
+
 
     public static final double VERSION = 2.2;
     public static final String ENDPOINT =
@@ -35,7 +37,17 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
+       // List<List_for_adapter> objects = new List_for_adapter ;
+
+
         requestData();
+
+        //objects.
+        //List<List_for_adapter> mList = List_for_adapter.class;
+        //mList.add_record
+
+
+        //requestData();
 
         button_search = (Button) findViewById(R.id.button_search);
 
@@ -65,6 +77,33 @@ public class MainActivity extends ActionBarActivity {
             public void success(ThreadSearch arg0, Response arg1) {
                 threadList = arg0;
                 //updateDisplay();
+
+
+
+                List<List_for_adapter> object = new ArrayList<>();
+
+                for(int i=0; i<7; i++){
+                    object.add(new List_for_adapter(threadList.getItems()[i].getOwner().getDisplay_name(),
+                                    threadList.getItems()[i].getOwner().getProfile_image(),
+                                    threadList.getItems()[i].getAnswer_count(),
+                                    threadList.getItems()[i].getTitle(),
+                                    threadList.getItems()[i].getLink() )
+                              );
+
+                    Log.i("BANANA", "object " + i + " display name: " + object.get(i).getdisplay_name());
+                    Log.i("BANANA", "object " + i + " user_image: " + object.get(i).getuser_image());
+                    Log.i("BANANA", "object " + i + " answer count: " + object.get(i).getanswer_count());
+                    Log.i("BANANA", "object " + i + " title: " + object.get(i).gettitle());
+                    Log.i("BANANA", "object " + i + " link: " + object.get(i).getlink());
+                }  // end of for loop
+
+
+
+
+
+
+
+
                 Log.i("BANANA", "Had a success in the callback method");
             }
 

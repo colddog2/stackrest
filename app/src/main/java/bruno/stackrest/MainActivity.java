@@ -1,10 +1,12 @@
 package bruno.stackrest;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +25,6 @@ import retrofit.client.Response;
 
 
 public class MainActivity extends ListActivity {
-
-
-
 
     Button button_search;
     MulticlassPOJO mMulticlassPOJO;
@@ -53,41 +52,21 @@ public class MainActivity extends ListActivity {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //When clicked show toast
-                 Log.i("banana", "you so clicked it ahdasdasa " + mMulticlassPOJO.getItems()[position].getLink());
 
-                Intent i = new Intent(Intent.ACTION_VIEW)
-                            .setData(Uri.parse(mMulticlassPOJO.getItems()[position].getLink()));
-                //TODO : manage the stack in a way that makes sense
-                startActivity(i);
-
-                ;
-
-
-
+                if (position == 0) {
+                    Toast.makeText(getBaseContext(), "This is the header", Toast.LENGTH_SHORT).show();
+                    //TODO: refresh the feed from here.  Yo.
+                } else {
+                    Intent i = new Intent(Intent.ACTION_VIEW)
+                            .setData(Uri.parse(mMulticlassPOJO.getItems()[position - 1].getLink()));
+                    //TODO : manage the stack in a way that makes sense
+                    startActivity(i);
+                }
 
             }
 
-        });
-
-
-        //objects.
-        //List<List_for_adapter> mList = List_for_adapter.class;
-        //mList.add_record
-
-
-        //requestData();
-
-        /*button_search = (Button) findViewById(R.id.button_search);
-
-        button_search.setOnClickListener(new View.OnClickListener() { //Start work button
-            @Override
-            public void onClick(View v) {
-                requestData();
-
-            }
-        });*/
-    }
+        }); // End of setOnItemClickListener
+    }  // End of onResume
 
 
 
@@ -108,6 +87,19 @@ public class MainActivity extends ListActivity {
             @Override
             public void success(MulticlassPOJO arg0, Response arg1) {
                 mMulticlassPOJO = arg0;
+
+
+                ListView mListView = getListView();
+
+
+                LayoutInflater mInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View header = mInflater.inflate(R.layout.list_header, null);
+                mListView.addHeaderView(header);
+
+
+
+
 
                 List<Topic> ListTopic = new ArrayList<>();  // This is the object that will populate the listview
 
@@ -132,6 +124,7 @@ public class MainActivity extends ListActivity {
                 TopicAdapter adapter = new TopicAdapter(getBaseContext(), R.layout.item_searchresult, ListTopic);
                 setListAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
 
                 Log.i("BANANA", "Quota remaining: " + mMulticlassPOJO.getQuota_remaining());
                 Log.i("BANANA", "First title: " + mMulticlassPOJO.getItems()[0].getTitle());

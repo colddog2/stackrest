@@ -27,8 +27,9 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/picture_poster"
         android:layout_marginLeft="12dp"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_above="@+id/poster_name" />
 
     <TextView
         android:id="@+id/poster_name"
@@ -40,7 +41,7 @@
         android:layout_toRightOf="@+id/picture_poster"
         android:layout_toEndOf="@+id/picture_poster"
         android:layout_marginLeft="12dp"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/answers_label"
@@ -52,7 +53,7 @@
         android:layout_toLeftOf="@+id/answers_number"
         android:layout_toStartOf="@+id/answers_number"
         android:layout_marginRight="0dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="italic" />
 
     <TextView
@@ -66,7 +67,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="0dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="italic" />
 
 </RelativeLayout>

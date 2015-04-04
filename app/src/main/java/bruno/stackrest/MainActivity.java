@@ -1,12 +1,17 @@
 package bruno.stackrest;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +22,13 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ListActivity {
+
+
+
 
     Button button_search;
-    ThreadSearch threadList;
+    MulticlassPOJO mMulticlassPOJO;
 
 
     public static final double VERSION = 2.2;
@@ -30,17 +38,38 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        setContentView(R.layout.search_results);
        // List<List_for_adapter> objects = new List_for_adapter ;
 
+        ListView mListView = getListView();
 
         requestData();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //When clicked show toast
+                 Log.i("banana", "you so clicked it ahdasdasa " + mMulticlassPOJO.getItems()[position].getLink());
+
+                Intent i = new Intent(Intent.ACTION_VIEW)
+                            .setData(Uri.parse(mMulticlassPOJO.getItems()[position].getLink()));
+                //TODO : manage the stack in a way that makes sense
+                startActivity(i);
+
+                ;
+
+
+
+
+            }
+
+        });
+
 
         //objects.
         //List<List_for_adapter> mList = List_for_adapter.class;
@@ -49,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
         //requestData();
 
-        button_search = (Button) findViewById(R.id.button_search);
+        /*button_search = (Button) findViewById(R.id.button_search);
 
         button_search.setOnClickListener(new View.OnClickListener() { //Start work button
             @Override
@@ -57,7 +86,7 @@ public class MainActivity extends ActionBarActivity {
                 requestData();
 
             }
-        });
+        });*/
     }
 
 
@@ -65,51 +94,53 @@ public class MainActivity extends ActionBarActivity {
 
     private void requestData() {
 
+        Toast.makeText(getBaseContext(), "Requesting new data", Toast.LENGTH_SHORT).show();
+
+
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(ENDPOINT)
                 .build();
 
-        ThreadSearchAPI api = adapter.create(ThreadSearchAPI.class);
+        TopicSearchAPI api = adapter.create(TopicSearchAPI.class);
 
-        api.getFeed(new Callback<ThreadSearch>() {
+        api.getFeed(new Callback<MulticlassPOJO>() {
 
             @Override
-            public void success(ThreadSearch arg0, Response arg1) {
-                threadList = arg0;
-                //updateDisplay();
+            public void success(MulticlassPOJO arg0, Response arg1) {
+                mMulticlassPOJO = arg0;
 
-
-
-                List<List_for_adapter> object = new ArrayList<>();
+                List<Topic> ListTopic = new ArrayList<>();  // This is the object that will populate the listview
 
                 for(int i=0; i<7; i++){
-                    object.add(new List_for_adapter(threadList.getItems()[i].getOwner().getDisplay_name(),
-                                    threadList.getItems()[i].getOwner().getProfile_image(),
-                                    threadList.getItems()[i].getAnswer_count(),
-                                    threadList.getItems()[i].getTitle(),
-                                    threadList.getItems()[i].getLink() )
-                              );
+                    ListTopic.add(new Topic(mMulticlassPOJO.getItems()[i].getOwner().getDisplay_name(),
+                                    mMulticlassPOJO.getItems()[i].getOwner().getProfile_image(),
+                                    mMulticlassPOJO.getItems()[i].getAnswer_count(),
+                                    mMulticlassPOJO.getItems()[i].getTitle(),
+                                    mMulticlassPOJO.getItems()[i].getLink())
+                    );
 
-                    Log.i("BANANA", "object " + i + " display name: " + object.get(i).getdisplay_name());
-                    Log.i("BANANA", "object " + i + " user_image: " + object.get(i).getuser_image());
-                    Log.i("BANANA", "object " + i + " answer count: " + object.get(i).getanswer_count());
-                    Log.i("BANANA", "object " + i + " title: " + object.get(i).gettitle());
-                    Log.i("BANANA", "object " + i + " link: " + object.get(i).getlink());
+                   /* Log.i("BANANA", "object " + i + " display name: " + object.get(i).getdisplay_name());
+                      Log.i("BANANA", "object " + i + " user_image: " + object.get(i).getuser_image());
+                      Log.i("BANANA", "object " + i + " answer count: " + object.get(i).getanswer_count());
+                      Log.i("BANANA", "object " + i + " title: " + object.get(i).gettitle());
+                      Log.i("BANANA", "object " + i + " link: " + object.get(i).getlink()); */
                 }  // end of for loop
 
 
+                // try this to deal with the state of the adapter - http://stackoverflow.com/questions/6534740/android-listview-adapter-how-to-detect-an-empty-list
 
+                TopicAdapter adapter = new TopicAdapter(getBaseContext(), R.layout.item_searchresult, ListTopic);
+                setListAdapter(adapter);
+                adapter.notifyDataSetChanged();
 
-
-
-
-
-                Log.i("BANANA", "Had a success in the callback method");
+                Log.i("BANANA", "Quota remaining: " + mMulticlassPOJO.getQuota_remaining());
+                Log.i("BANANA", "First title: " + mMulticlassPOJO.getItems()[0].getTitle());
+                Log.i("BANANA", "Last title: " + mMulticlassPOJO.getItems()[6].getTitle());
             }
 
             @Override
             public void failure(RetrofitError arg0) {
-                Log.i("BANANA","Failed to get a success in the callback method");
+                Log.i("BANANA", "Retrofit failed: " + arg0.getMessage());
             }
         });
 
@@ -117,6 +148,12 @@ public class MainActivity extends ActionBarActivity {
 
 
 
+
+
+    protected void updateDisplay() {
+        //Use FlowerAdapter to display data
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

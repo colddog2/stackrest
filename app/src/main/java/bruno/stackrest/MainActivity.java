@@ -1,5 +1,6 @@
 package bruno.stackrest;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,15 +26,14 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends ListActivity {
-
-    Button button_search;
-    MulticlassPOJO mMulticlassPOJO;
+public class MainActivity extends Activity {
 
 
-    public static final double VERSION = 2.2;
-    public static final String ENDPOINT =
-            "https://api.stackexchange.com/" + VERSION;
+
+    private Button search_button;
+    private EditText mEditText;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,109 +44,26 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setContentView(R.layout.search_results);
-       // List<List_for_adapter> objects = new List_for_adapter ;
+        setContentView(R.layout.activity_main);
 
-        ListView mListView = getListView();
+        search_button =  (Button)findViewById(R.id.button_search);
+        mEditText =  (EditText)findViewById(R.id.et_SearchTopic);
 
-        requestData();
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position == 0) {
-                    Toast.makeText(getBaseContext(), "This is the header", Toast.LENGTH_SHORT).show();
-                    //TODO: refresh the feed from here.  Yo.
-                } else {
-                    Intent i = new Intent(Intent.ACTION_VIEW)
-                            .setData(Uri.parse(mMulticlassPOJO.getItems()[position - 1].getLink()));
-                    //TODO : manage the stack in a way that makes sense
-                    startActivity(i);
-                }
-
+        search_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                start_feed_activity(mEditText.getText().toString() );
             }
+        }); //End of setOnClickListener
 
-        }); // End of setOnItemClickListener
     }  // End of onResume
 
 
-
-
-    private void requestData() {
-
-        Toast.makeText(getBaseContext(), "Requesting new data", Toast.LENGTH_SHORT).show();
-
-
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(ENDPOINT)
-                .build();
-
-        TopicSearchAPI api = adapter.create(TopicSearchAPI.class);
-
-        api.getFeed(new Callback<MulticlassPOJO>() {
-
-            @Override
-            public void success(MulticlassPOJO arg0, Response arg1) {
-                mMulticlassPOJO = arg0;
-
-
-                ListView mListView = getListView();
-
-
-                LayoutInflater mInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View header = mInflater.inflate(R.layout.list_header, null);
-                mListView.addHeaderView(header);
-
-
-
-
-
-                List<Topic> ListTopic = new ArrayList<>();  // This is the object that will populate the listview
-
-                for(int i=0; i<7; i++){
-                    ListTopic.add(new Topic(mMulticlassPOJO.getItems()[i].getOwner().getDisplay_name(),
-                                    mMulticlassPOJO.getItems()[i].getOwner().getProfile_image(),
-                                    mMulticlassPOJO.getItems()[i].getAnswer_count(),
-                                    mMulticlassPOJO.getItems()[i].getTitle(),
-                                    mMulticlassPOJO.getItems()[i].getLink())
-                    );
-
-                   /* Log.i("BANANA", "object " + i + " display name: " + object.get(i).getdisplay_name());
-                      Log.i("BANANA", "object " + i + " user_image: " + object.get(i).getuser_image());
-                      Log.i("BANANA", "object " + i + " answer count: " + object.get(i).getanswer_count());
-                      Log.i("BANANA", "object " + i + " title: " + object.get(i).gettitle());
-                      Log.i("BANANA", "object " + i + " link: " + object.get(i).getlink()); */
-                }  // end of for loop
-
-
-                // try this to deal with the state of the adapter - http://stackoverflow.com/questions/6534740/android-listview-adapter-how-to-detect-an-empty-list
-
-                TopicAdapter adapter = new TopicAdapter(getBaseContext(), R.layout.item_searchresult, ListTopic);
-                setListAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-
-                Log.i("BANANA", "Quota remaining: " + mMulticlassPOJO.getQuota_remaining());
-                Log.i("BANANA", "First title: " + mMulticlassPOJO.getItems()[0].getTitle());
-                Log.i("BANANA", "Last title: " + mMulticlassPOJO.getItems()[6].getTitle());
-            }
-
-            @Override
-            public void failure(RetrofitError arg0) {
-                Log.i("BANANA", "Retrofit failed: " + arg0.getMessage());
-            }
-        });
-
-    }
-
-
-
-
-
-    protected void updateDisplay() {
-        //Use FlowerAdapter to display data
-
+    private void start_feed_activity (String search_string) {
+        Intent i = new Intent(this, FeedResultActivity.class);
+        i.putExtra("search_string", search_string);
+        startActivity(i);
     }
 
     @Override
@@ -169,4 +87,6 @@ public class MainActivity extends ListActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+
+}  // End of Activity

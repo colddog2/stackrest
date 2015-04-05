@@ -17,16 +17,27 @@
         android:layout_toStartOf="@+id/button_search"
         android:padding="10dp"
         android:freezesText="true"
-        android:hint="Search topic" />
+        android:hint="Search topic"
+        android:layout_marginTop="40dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/button_search"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:padding="10dp"
-        style="@style/btnStyleOrange" />
+        style="@style/btnStyleOrange"
+        android:layout_alignBottom="@+id/et_SearchTopic"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply Android tag to search"
+        android:id="@+id/AndroidTagCheckbox"
+        android:layout_below="@+id/et_SearchTopic"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

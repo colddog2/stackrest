@@ -1,4 +1,4 @@
-package bruno.stackrest;
+package bruno.StackSearch;
 
 /**
  * Created by Bruno on 2015-04-03.
@@ -14,7 +14,7 @@ public class Topic {
     public String gettitle ()          {  return title;  }
     public String getlink ()           {  return link;  }
 
-    public Topic(String display_name, String user_image, String answer_count, String title, String link)  { //This replaces the void method and is used to create new Topic objects
+    public Topic(String display_name, String user_image, String answer_count, String title, String link)  { //This is the method for adding new Topic objects
         this.display_name= display_name;
         this.user_image= user_image;
         this.answer_count = answer_count ;

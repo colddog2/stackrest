@@ -1,10 +1,8 @@
-package bruno.stackrest;
+package bruno.StackSearch;
 
-import android.graphics.Bitmap;
 
-/**
- * Created using http://pojo.sodhanalibrary.com/  based off the http://api.stackexchange.com/2.2/search?page=1&pagesize=3&order=desc&sort=activity&tagged=android&site=stackoverflow JSON results
- */
+/** Created using http://pojo.sodhanalibrary.com/  based off the http://api.stackexchange.com/2.2/search?page=1&pagesize=3&order=desc&sort=activity&tagged=android&site=stackoverflow JSON results  */
+
 public class MulticlassPOJO {
 
 

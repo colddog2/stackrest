@@ -1,4 +1,4 @@
-package bruno.stackrest;
+package bruno.StackSearch;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

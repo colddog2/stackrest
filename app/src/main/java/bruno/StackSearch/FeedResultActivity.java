@@ -58,13 +58,14 @@ public class FeedResultActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_results);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        setContentView(R.layout.search_results);
+
         mListView = (ListView)findViewById(android.R.id.list);
 
         LayoutInflater mInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -82,8 +83,7 @@ public class FeedResultActivity extends ActionBarActivity {
                     data_loaded_succesfully = false ; //Setting it to false ensures that if something goes wrong during the requestData() method, the activity will start anew
                     requestData();
                 } else {
-                    Intent mIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(ListTopic.get(position - 1).getlink()));
-                    startActivity(mIntent);
+                    startWebView(position);
                 }
             }
 
@@ -115,6 +115,14 @@ public class FeedResultActivity extends ActionBarActivity {
 
    }  // End of onResume
 
+
+    private void startWebView (Integer position) {
+        Intent mIntent = new Intent(this, WebViewActivity.class);
+
+        mIntent.putExtra("url", (ListTopic.get(position - 1).getlink()));
+        startActivity(mIntent);
+
+    }
 
 
     private void requestData() {
@@ -155,6 +163,7 @@ public class FeedResultActivity extends ActionBarActivity {
 
                 if (search_returns_quantity == 0) {
                     Toast.makeText(getBaseContext(), "Your search yielded no result.  Try another search term.", Toast.LENGTH_SHORT).show();
+                    mProgressDialog.dismiss(); //Avoid a window leak by dismissing this dialog.  Be a good citizen!
                     return_to_main_activity();
                 } else {
                     /** Note: If the number of search returns is lower than any threshold, that number of returns will be preserved.  The idea here is to prevent 30-item lists on phones */

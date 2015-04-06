@@ -28,8 +28,16 @@
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
-
+        <activity
+            android:name="bruno.StackSearch.WebViewActivity"
+            android:label="StackSearch result"
+            android:parentActivityName="bruno.StackSearch.FeedResultActivity"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 

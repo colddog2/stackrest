@@ -27,12 +27,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setContentView(R.layout.activity_main);
 
         search_button =  (Button)findViewById(R.id.button_search);
         mEditText =  (EditText)findViewById(R.id.et_SearchTopic);

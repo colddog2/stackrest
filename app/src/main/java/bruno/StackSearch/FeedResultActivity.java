@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,10 @@ public class FeedResultActivity extends ActionBarActivity {
     public static final double VERSION = 2.2;
     public static final String ENDPOINT =
             "https://api.stackexchange.com/" + VERSION;
+
+    public static Long second = 1000L ;
+    public static Long minute = 60*second ;
+    public static Long HTTP_TIMEOUT = 10*second ;
 
     private boolean data_loaded_succesfully, android_tag_applied ;
     private String search_string, tag_searched, json_array_content, device_size ;
@@ -135,9 +141,9 @@ public class FeedResultActivity extends ActionBarActivity {
         if (TextUtils.isEmpty(device_size)) {  device_size = infer_device_size() ;   }
 
         mOkHttpClient = new OkHttpClient();
-            mOkHttpClient.setConnectTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
-            mOkHttpClient.setWriteTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
-            mOkHttpClient.setReadTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            mOkHttpClient.setConnectTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            mOkHttpClient.setWriteTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            mOkHttpClient.setReadTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
 
         RestAdapter mRestAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)

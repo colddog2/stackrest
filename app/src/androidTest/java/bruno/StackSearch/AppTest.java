@@ -3,7 +3,6 @@ package bruno.StackSearch;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 
@@ -98,8 +97,6 @@ public class AppTest extends ActivityInstrumentationTestCase2<MainActivity> {
                 true, solo.waitForText("Refresh feed") );
 
         solo.setActivityOrientation(0);
-
-        solo.sleep(500);  //In case a slow phone runs the test and doesn't have time to recreate the activity //TODO is it really necessary?
 
         assertEquals("The header was not visible after the activity was rotated",
                 true, solo.waitForText("Refresh feed") );

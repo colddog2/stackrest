@@ -16,8 +16,6 @@ import java.util.List;
 
 public class TopicAdapter extends ArrayAdapter<Topic> {
 
-
-
     private Context context;
     private List<Topic> mList;
 
@@ -36,22 +34,22 @@ public class TopicAdapter extends ArrayAdapter<Topic> {
 
         View search_item = inflater.inflate(R.layout.item_searchresult, parent, false);
 
-        //Display flower name in the TextView widget
-        Topic flower = mList.get(position);
+
+        Topic mTopic = mList.get(position);
 
 
         TextView mPoster_name = (TextView) search_item.findViewById(R.id.poster_name);
-            mPoster_name.setText(flower.getdisplay_name());
+            mPoster_name.setText(mTopic.getdisplay_name());
 
         TextView mAnswers_number = (TextView) search_item.findViewById(R.id.answers_number);
-            mAnswers_number.setText(flower.getanswer_count());
+            mAnswers_number.setText(mTopic.getanswer_count());
 
         TextView m_Title = (TextView) search_item.findViewById(R.id.thread_name);
-            m_Title.setText(flower.gettitle());
+            m_Title.setText(mTopic.gettitle());
 
         ImageView mPicture = (ImageView) search_item.findViewById(R.id.picture_poster);
             Picasso.with(getContext())
-                    .load(flower.getuser_image())
+                    .load(mTopic.getuser_image())
                     .resize(80, 80)
                     .into(mPicture);
 

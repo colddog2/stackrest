@@ -29,7 +29,7 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/picture_poster"
         android:layout_marginLeft="12dp"
-        android:textSize="@dimen/text_itemlist_vertical_topic"
+        android:textSize="@dimen/text_itemlist_landscape_topic"
         android:textStyle="bold"
         android:layout_above="@+id/poster_name" />
 
@@ -43,7 +43,7 @@
         android:layout_toRightOf="@+id/picture_poster"
         android:layout_toEndOf="@+id/picture_poster"
         android:layout_marginLeft="12dp"
-        android:textSize="@dimen/text_itemlist_vertical_author" />
+        android:textSize="@dimen/text_itemlist_landscape_author" />
 
     <TextView
         android:id="@+id/answers_label"
@@ -55,7 +55,7 @@
         android:layout_toLeftOf="@+id/answers_number"
         android:layout_toStartOf="@+id/answers_number"
         android:layout_marginRight="0dp"
-        android:textSize="@dimen/text_itemlist_vertical_answers"
+        android:textSize="@dimen/text_itemlist_landscape_answers"
         android:textStyle="italic" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="0dp"
-        android:textSize="@dimen/text_itemlist_vertical_answers"
+        android:textSize="@dimen/text_itemlist_landscape_answers"
         android:textStyle="italic" />
 
 </RelativeLayout>

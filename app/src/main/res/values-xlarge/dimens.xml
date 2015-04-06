@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+ 
+ 
+ 
+ <!-- Start of file -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="activity_vertical_margin">64dp</dimen>
+ 
+    <dimen name="margin_general">24dp</dimen>
+    <dimen name="padding_general">20dp</dimen>
+    <dimen name="padding_android_tag">30dp</dimen>
+ 
+    <dimen name="margin_top_vertical_mainactivity">100dp</dimen>
+ 
+    <dimen name="text_size_large">40sp</dimen>
+    <dimen name="text_size_small">32sp</dimen>
+ 
+    <dimen name="text_refreshfeed">30sp</dimen>
+ 
+    <dimen name="text_itemlist_vertical_topic">20sp</dimen>
+    <dimen name="text_itemlist_vertical_author">16sp</dimen>
+    <dimen name="text_itemlist_vertical_answers">16sp</dimen>
+ 
+    <dimen name="text_itemlist_landscape_topic">20sp</dimen>
+    <dimen name="text_itemlist_landscape_author">16sp</dimen>
+    <dimen name="text_itemlist_landscape_answers">16sp</dimen>
+ 
+</resources>

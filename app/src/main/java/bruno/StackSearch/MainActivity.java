@@ -3,9 +3,12 @@ package bruno.StackSearch;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,9 +20,9 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    private Button search_button;
-    private EditText mEditText;
-    private CheckBox mCheckbox;
+    private static Button search_button;
+    private static EditText mEditText;
+    private static CheckBox mCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,9 @@ public class MainActivity extends ActionBarActivity {
         mCheckbox = (CheckBox) findViewById(R.id.AndroidTagCheckbox);
 
         android.support.v7.app.ActionBar menu = getSupportActionBar();
-        menu.setDisplayShowHomeEnabled(true);
-        menu.setLogo(R.mipmap.ic_launcher);
-        menu.setDisplayUseLogoEnabled(true);
-
-        start_feed_activity("a");  //TODO: remove this line since it's for testing only
+            menu.setDisplayShowHomeEnabled(true);
+            menu.setLogo(R.mipmap.ic_launcher);
+            menu.setDisplayUseLogoEnabled(true);
 
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             mCheckbox.setChecked(mSharedPreferences.getBoolean("android_tag_applied", false));
@@ -53,20 +54,33 @@ public class MainActivity extends ActionBarActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String temp_string =  mEditText.getText().toString();
-                if (temp_string != null && !temp_string.isEmpty()) {
 
+
+
+
+                if ( TextUtils.isEmpty(temp_string) && !mCheckbox.isChecked()) {
+                    Toast.makeText(getBaseContext(), "Please enter a search term", Toast.LENGTH_SHORT).show();
+                }  else if (!isNetworkAvailable()) {
+                    Toast.makeText(getBaseContext(), "You need an Internet connection to search Stackoverflow.", Toast.LENGTH_SHORT).show();
+                }  else  {
                     //These two InputMethodManager lines below are here to ensure that the keyboard is effectively removed in case the loading takes a long time.  Do not remove.
                     InputMethodManager imm = (InputMethodManager)getSystemService( Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
 
                     start_feed_activity(temp_string);
-                } else {
-                    Toast.makeText(getBaseContext(), "Please enter a search term", Toast.LENGTH_SHORT).show();
                 }
           }
         }); //End of setOnClickListener
 
     }  // End of onResume
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 
     private void save_checkbox_to_preferences () {

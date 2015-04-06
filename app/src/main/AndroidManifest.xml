@@ -13,7 +13,7 @@
         <activity
             android:name="bruno.StackSearch.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +23,9 @@
 
         <activity
             android:name="bruno.StackSearch.FeedResultActivity"
-            android:label="Results"
-            android:parentActivityName="bruno.StackSearch.MainActivity" >
+            android:label="Search results"
+            android:parentActivityName="bruno.StackSearch.MainActivity"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,5 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+ 
+ 
+ 
+ 
+ <!-- Start of file -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+ 
+    <dimen name="margin_general">16dp</dimen>
+    <dimen name="padding_general">10dp</dimen>
+    <dimen name="padding_android_tag">10dp</dimen>
+ 
+    <dimen name="margin_top_vertical_mainactivity">40dp</dimen>
+ 
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+ 
+    <dimen name="text_refreshfeed">22sp</dimen>
+ 
+    <dimen name="text_itemlist_vertical_topic">14sp</dimen>
+    <dimen name="text_itemlist_vertical_author">12sp</dimen>
+    <dimen name="text_itemlist_vertical_answers">12sp</dimen>
+ 
+    <dimen name="text_itemlist_landscape_topic">17sp</dimen>
+    <dimen name="text_itemlist_landscape_author">15sp</dimen>
+    <dimen name="text_itemlist_landscape_answers">15sp</dimen>
+ 
 </resources>

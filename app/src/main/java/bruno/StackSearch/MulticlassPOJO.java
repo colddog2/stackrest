@@ -6,7 +6,6 @@ package bruno.StackSearch;
 public class MulticlassPOJO {
 
 
-
     private String quota_max;
 
     private Items[] items;

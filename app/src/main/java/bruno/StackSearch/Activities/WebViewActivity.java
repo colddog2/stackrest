@@ -17,11 +17,6 @@ public class WebViewActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         mBundle = getIntent().getExtras();
 
@@ -32,6 +27,11 @@ public class WebViewActivity extends ActionBarActivity{
 
         finishIfBundleIsNull();
         loadURLintoWebView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void finishIfBundleIsNull() {

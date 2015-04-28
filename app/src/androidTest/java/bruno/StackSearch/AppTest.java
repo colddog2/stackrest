@@ -9,6 +9,10 @@ import com.robotium.solo.Solo;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import bruno.StackSearch.Activities.FeedResultActivity;
+import bruno.StackSearch.Activities.MainActivity;
+import bruno.StackSearch.Activities.WebViewActivity;
+
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -64,7 +68,6 @@ public class AppTest extends ActivityInstrumentationTestCase2<MainActivity> {
         //Makes sure that the checkbox is always *checked* when conducting the test.  This is not a test of the app itself.
         if (!solo.isCheckBoxChecked(0)) { solo.clickOnCheckBox(0);}
 
-
         solo.enterText(0, test_string); //Write some random gibberish in the EditText field and then test to make sure it is preserved on activity recreation
 
         solo.clickOnButton("Search");  //Makes sure the insanity check is in place
@@ -73,11 +76,6 @@ public class AppTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
         assertEquals("The failed search sequence failed to initiate.  A toast message was expected in the MainActivity",
                 true, solo.waitForText("Your search yielded no result.  Try another search term.") );
-
-
-
-        //boolean notesFound = solo.searchText("Retrofit");  //&& solo.searchText("Note 2");
-        //assertTrue("Content of the search EditText field was not preserved after activity recreation", notesFound);
     }
 
 
@@ -107,18 +105,7 @@ public class AppTest extends ActivityInstrumentationTestCase2<MainActivity> {
         solo.goBack();
 
         solo.assertCurrentActivity("Current activity is ", FeedResultActivity.class) ;
-
     }
-
-    /*
-
-    solo.clickOnButton("Search");
-        solo.assertCurrentActivity("MainActivity activity was ", "FeedResultActivity");
-
-     */
-
-
-
 
     @Override
     public void setUp() throws Exception {

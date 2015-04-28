@@ -1,9 +1,9 @@
-package bruno.StackSearch;
+package bruno.StackSearch.POJOs;
 
 
 /** Created using http://pojo.sodhanalibrary.com/  based off the http://api.stackexchange.com/2.2/search?page=1&pagesize=3&order=desc&sort=activity&tagged=android&site=stackoverflow JSON results  */
 
-public class MulticlassPOJO {
+public class ResponseStackREST {
 
 
     private String quota_max;

@@ -1,4 +1,4 @@
-package bruno.StackSearch;
+package bruno.StackSearch.POJOs;
 
 /**
  * Created by Bruno on 2015-04-03.

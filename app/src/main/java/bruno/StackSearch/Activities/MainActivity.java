@@ -31,14 +31,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        InitializeUI();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        InitializeUI();
         InitializeClickListeners();
     }
 
@@ -70,6 +68,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void InitializeUI() {
+        setContentView(R.layout.activity_main);
+
         android.support.v7.app.ActionBar menu = getSupportActionBar();
             menu.setDisplayShowHomeEnabled(true);
             menu.setLogo(R.mipmap.ic_launcher);

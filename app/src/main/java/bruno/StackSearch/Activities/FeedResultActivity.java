@@ -42,7 +42,7 @@ import retrofit.client.Response;
 public class FeedResultActivity extends ActionBarActivity {
 
         //TODO: Refactor this activity
-        //TODO: Convert the HTML encoding to normality
+
     public static final double VERSION = 2.2;
     public static final String ENDPOINT =
             "https://api.stackexchange.com/" + VERSION;
@@ -62,7 +62,7 @@ public class FeedResultActivity extends ActionBarActivity {
     private TopicAdapter mAdapter ;
     private Bundle mBundle ;
     private OkHttpClient mOkHttpClient ;
-    private ResponseStackREST mResponseStackREST;
+    private ResponseStackREST ResponseAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,11 @@ public class FeedResultActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+   }
+
     private boolean QueryArgumentsAreNull() {
         if (mBundle==null) {
             return true;
@@ -89,11 +94,6 @@ public class FeedResultActivity extends ActionBarActivity {
             return false;
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-   }
 
     private void PrepareQueryArgumentsFromBundle() {
         android_tag_applied = (Boolean) mBundle.get("android_tag_applied");
@@ -143,8 +143,8 @@ public class FeedResultActivity extends ActionBarActivity {
                 if (NumberOfSearchReturns == 0) {
                     NoSearchResultsFinishActivity();
                 } else {
-                    mResponseStackREST = arg0;
-                    buildListTopic(mResponseStackREST);
+                    ResponseAPI = arg0;
+                    buildListTopic(ResponseAPI);
 
                     getDeviceSize();
                     setMaximumListviewLength();

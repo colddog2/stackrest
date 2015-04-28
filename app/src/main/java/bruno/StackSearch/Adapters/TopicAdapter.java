@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+
 import java.util.List;
 
 import bruno.StackSearch.POJOs.Topic;
@@ -37,8 +39,7 @@ public class TopicAdapter extends ArrayAdapter<Topic> {
         ViewHolder holder;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        System.out.println("getView " + position + " " + convertView);
-
+            System.out.println("getView " + position + " " + convertView);
 
         if (convertView == null) {
             Log.i("getView","The ConvertView got created from scratch");
@@ -56,14 +57,13 @@ public class TopicAdapter extends ArrayAdapter<Topic> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Topic mTopic = mList.get(position);
+        Topic TopicItem = mList.get(position);
 
-
-        holder.PosterName.setText(mTopic.getdisplay_name());
-        holder.AnswerCount.setText(mTopic.getanswer_count());
-        holder.PostTitle.setText(mTopic.gettitle());
+        holder.PosterName.setText(Jsoup.parse(TopicItem.getdisplay_name()).text());
+        holder.AnswerCount.setText(TopicItem.getanswer_count());
+        holder.PostTitle.setText(Jsoup.parse(TopicItem.gettitle() ).text());
         Picasso.with(getContext())
-                .load(mTopic.getuser_image())
+                .load(TopicItem.getuser_image())
                 .resize(80, 80)
                 .into(holder.PosterPicture);
 

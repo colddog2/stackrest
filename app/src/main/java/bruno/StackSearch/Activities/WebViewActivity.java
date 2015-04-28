@@ -17,16 +17,21 @@ public class WebViewActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
+        SetupActionBar();
 
         mBundle = getIntent().getExtras();
 
-        android.support.v7.app.ActionBar menu = getSupportActionBar();
-            menu.setDisplayShowHomeEnabled(true);
-            menu.setLogo(R.mipmap.ic_launcher);
-            menu.setDisplayUseLogoEnabled(true);
+
 
         finishIfBundleIsNull();
         loadURLintoWebView();
+    }
+
+    private void SetupActionBar() {
+        android.support.v7.app.ActionBar menu = getSupportActionBar();
+        menu.setDisplayShowHomeEnabled(true);
+        menu.setLogo(R.mipmap.ic_launcher);
+        menu.setDisplayUseLogoEnabled(true);
     }
 
     @Override
